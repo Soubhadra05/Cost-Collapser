@@ -44,6 +44,45 @@ const btnSaveGmailConfig = document.getElementById('btnSaveGmailConfig');
 const gmailStatusBadge = document.getElementById('gmailStatusBadge');
 
 
+// Theme switcher — persists the user's choice across sessions.
+const themeToggle = document.getElementById('themeToggle');
+const themeToggleIcon = document.getElementById('themeToggleIcon');
+const themeToggleText = document.getElementById('themeToggleText');
+const rootElement = document.documentElement;
+
+function applyTheme(theme) {
+  const isDark = theme === 'dark';
+  rootElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+
+  if (themeToggleIcon) themeToggleIcon.textContent = isDark ? '☀️' : '🌙';
+  if (themeToggleText) themeToggleText.textContent = isDark ? 'Light' : 'Dark';
+  if (themeToggle) {
+    themeToggle.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+    themeToggle.setAttribute('title', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+  }
+
+  try {
+    localStorage.setItem('cost-collapser-theme', isDark ? 'dark' : 'light');
+  } catch (e) {}
+}
+
+(function initTheme() {
+  let savedTheme = 'light';
+  try {
+    savedTheme = localStorage.getItem('cost-collapser-theme') || 'light';
+  } catch (e) {}
+  applyTheme(savedTheme === 'dark' ? 'dark' : 'light');
+})();
+
+if (themeToggle) {
+  themeToggle.addEventListener('click', () => {
+    const nextTheme = rootElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    applyTheme(nextTheme);
+  });
+}
+
+
+
 const wakeUpAlertContainer = document.getElementById('wakeUpAlertContainer');
 const alertSummaryText = document.getElementById('alertSummaryText');
 const pendingGateList = document.getElementById('pendingGateList');

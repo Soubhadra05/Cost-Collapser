@@ -75,6 +75,7 @@ npm start
 - **Command Center Dashboard:** [http://localhost:3000](http://localhost:3000)
 - **Live Mock Industrial Store:** [http://localhost:3000/products/titan-carbide-drill-5000](http://localhost:3000/products/titan-carbide-drill-5000) (or port 4100)
 
+
 ### 3. Run Automated Tests
 ```bash
 npm test
